@@ -1,13 +1,11 @@
 - hosts: all
   gather_facts: no
-  vars_files:
-    - group_vars/all/vars.yml
-  roles:
-    - role: geerlingguy.pip
-      vars:
-        pip_install_packages:
-          - name: docker
   tasks:
+    - name: Install pip's docker 
+      pip: 
+        name: docker
+      tags: req
+
     - name: Copy .env
       ansible.builtin.template:
         src: templates/.env
