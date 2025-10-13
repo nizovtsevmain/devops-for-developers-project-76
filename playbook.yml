@@ -1,4 +1,5 @@
 - hosts: all
+  gather_facts: no
   vars_files:
     - group_vars/all/vars.yml
   roles:
@@ -7,18 +8,17 @@
         pip_install_packages:
           - name: docker
   tasks:
-    - name: Create .env file
-      ansible.builtin.template:
-        src: .env.j2
-        dest: .env
-      tags: deploy
+    - name: Copy .env
+      template:
+        src: templates/.env
+        dest: /root/.env
 
-    - name: Deploy redmine
+    - name: Deploy Redmine
       community.docker.docker_container:
         name: redmine
         image: "redmine:latest"
         restart_policy: always
         state: started
         env_file: .env
-        ports: "3000:3000"
+        ports: "3004:3004"
       tags: deploy
