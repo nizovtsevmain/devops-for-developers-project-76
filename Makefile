@@ -8,4 +8,4 @@ redmine-deploy:
 	ansible-playbook --vault-password-file .password playbook.yml -i inventory.ini -t deploy
 
 setup-datadog:
-	ansible-playbook datadog_playbook.yml --vault-password-file vault_pass
+	ansible-playbook datadog_playbook.yml --vault-password-file .password
