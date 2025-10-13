@@ -1,0 +1,16 @@
+- hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: start datadog
+      import_role:
+        name: datadog.datadog
+      vars:
+        datadog_api_key: '{{ datadog_api_key }}'
+        datadog_site: '{{ datadog_site }}'
+        datadog_checks:
+          http_check:
+            init_config:
+            instances:
+              - name: app_check
+                url: '{{ apps_localhost }}'
+      become: yes
