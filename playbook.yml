@@ -9,7 +9,7 @@
           - name: docker
   tasks:
     - name: Copy .env
-      template:
+      ansible.builtin.template:
         src: templates/.env
         dest: /root/.env
 
