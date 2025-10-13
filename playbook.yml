@@ -9,7 +9,7 @@
     - name: Copy .env
       ansible.builtin.template:
         src: templates/.env
-        dest: /root/.env
+        dest: .env
 
     - name: Deploy Redmine
       community.docker.docker_container:
@@ -18,5 +18,5 @@
         restart_policy: always
         state: started
         env_file: .env
-        ports: "3004:3004"
+        ports: "3000:3000"
       tags: deploy
