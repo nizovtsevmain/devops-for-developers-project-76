@@ -9,7 +9,7 @@
 
     - name: Copy .env
       ansible.builtin.template:
-        src: templates/.env
+        src: .env.j2
         dest: .env
         mode: '0644'
         owner: root
@@ -19,9 +19,9 @@
     - name: Deploy Redmine
       community.docker.docker_container:
         name: redmine
-        image: "redmine:latest"
+        image: "redmine:alpine3.21"
         restart_policy: always
         state: started
         env_file: .env
-        ports: "3007:3007"
+        ports: "{{ redmine_port }}:{{ redmine_port }}"
       tags: deploy
